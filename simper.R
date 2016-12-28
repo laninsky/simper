@@ -23,16 +23,18 @@ if (length(zerorows)>0) {
 sp_output <- matrix(NA,ncol=7,nrow=(dim(sp_data)[2]))
 sp_output[,1] <- names(sp_data)
 gp_col <- which(names(gp_data)==group_name)
-gp_names <- unique(gp_data[,gp_row])
+gp_names <- unique(gp_data[,gp_col])
 
 sp_data_1 <- sp_data[(which(gp_data[,gp_col]==gp_names[1])),]
 sp_data_2 <- sp_data[(which(gp_data[,gp_col]==gp_names[2])),]
+sp_data_1 <- data.matrix(sp_data_1)
+sp_data_2 <- data.matrix(sp_data_2)
 
-#Need to figure out correct formula here
 for (i in 1:(dim(sp_data)[2])) {
   temp_sp <- NULL
   for (j in 1:(dim(sp_data_1)[1])) {
-  bray_curt <- (abs(sp_data_2[,i]-sp_data_1[j,i])/(sp_data_2[,i]+sp_data_1[j,i]))
+  add_matrix <- matrix(rep(sp_data_1[j,],each=(dim(sp_data_2)[1])),ncol=(dim(sp_data_1)[2]))
+  bray_curt <- abs(sp_data_2[,i]-sp_data_1[j,i])/rowSums(add_matrix+sp_data_2)
   bray_curt <- bray_curt[!is.na(bray_curt)]
   temp_sp <- c(temp_sp,bray_curt)
   }
