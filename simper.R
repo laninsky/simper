@@ -28,6 +28,7 @@ gp_names <- unique(gp_data[,gp_row])
 sp_data_1 <- sp_data[(which(gp_data[,gp_col]==gp_names[1])),]
 sp_data_2 <- sp_data[(which(gp_data[,gp_col]==gp_names[2])),]
 
+#Need to figure out correct formula here
 for (i in 1:(dim(sp_data)[2])) {
   temp_sp <- NULL
   for (j in 1:(dim(sp_data_1)[1])) {
@@ -43,6 +44,20 @@ for (i in 1:(dim(sp_data)[2])) {
   flush.console()
 }
 
+sp_output <- sp_output[order(sp_output[,5], decreasing=TRUE),]
+sp_output <- sp_output[order(sp_output[,4], decreasing=TRUE),]
 
+for (i in 1:(dim(sp_data)[2])) {
+  sp_output[i,6] <- as.numeric(sp_output[i,4])/sum(as.numeric(sp_output[,4]))*100
+  if(i!=1) {
+    sp_output[i,7] <- as.numeric(sp_output[(i-1),7])+as.numeric(sp_output[i,6])
+    } else {
+    sp_output[i,7] <- sp_output[i,6]
+  }
+}  
 
+sp_output_name <- c("Name",paste(gp_names[1],".Av.Abund",sep=""),paste(gp_names[2],"Av.Abund",sep=""),"Av.Diss","Diss/SD", "Contrib%", "Cum.%")
 
+sp_output <- rbind(sp_output_name,sp_output)
+
+write.table(sp_output,"species_simper_contributions.txt",quote=FALSE,col.names=FALSE,row.names=FALSE)
