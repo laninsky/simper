@@ -28,6 +28,8 @@ gp_names <- unique(gp_data[,gp_row])
 for (i in 1:(dim(sp_data)[2])) {
   temp_sp <- NULL
   for (j in 1:((dim(sp_data)[1])-1)) {
+  print(paste("up to row",j,"of",dim(sp_data)[1],"in total"))
+  flush.console()
     for (k in (j+1):(dim(sp_data)[1])) {
       if(gp_data[j,gp_row]==gp_data[k,gp_row]) {
         next
