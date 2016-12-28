@@ -25,6 +25,9 @@ sp_output[,1] <- names(sp_data)
 gp_row <- which(names(gp_data)==group_name)
 gp_names <- unique(gp_data[,gp_row])
 
+#see whether it can be vectorized and made quicker.
+
+
 for (i in 1:(dim(sp_data)[2])) {
   temp_sp <- NULL
   for (j in 1:((dim(sp_data)[1])-1)) {
