@@ -33,8 +33,7 @@ sp_data_2 <- data.matrix(sp_data_2)
 for (i in 1:(dim(sp_data)[2])) {
   temp_sp <- NULL
   for (j in 1:(dim(sp_data_1)[1])) {
-  add_matrix <- matrix(rep(sp_data_1[j,],each=(dim(sp_data_2)[1])),ncol=(dim(sp_data_1)[2]))
-  bray_curt <- abs(sp_data_2[,i]-sp_data_1[j,i])/rowSums(add_matrix+sp_data_2)
+  bray_curt <- abs(sp_data_2[,i]-sp_data_1[j,i])/(rowSums(sp_data_2)+sum(sp_data_1[j,]))
   bray_curt <- bray_curt[!is.na(bray_curt)]
   temp_sp <- c(temp_sp,bray_curt)
   }
