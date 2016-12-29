@@ -59,7 +59,6 @@ for (i in 1:(dim(sp_data)[2])) {
 }  
 
 sp_output_name <- c("Name",paste(gp_names[1],".Av.Abund",sep=""),paste(gp_names[2],"Av.Abund",sep=""),"Av.Diss","Diss/SD", "Contrib%", "Cum.%")
-
 sp_output <- rbind(sp_output_name,sp_output)
-
 write.table(sp_output,"species_simper_contributions.txt",quote=FALSE,col.names=FALSE,row.names=FALSE)
+
