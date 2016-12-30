@@ -30,6 +30,7 @@ sp_data_2 <- sp_data[(which(gp_data[,gp_col]==gp_names[2])),]
 sp_data_1 <- data.matrix(sp_data_1)
 sp_data_2 <- data.matrix(sp_data_2)
 
+#Rewrite this to take into account the number of processors, print out as an Rscript to run in parallel.
 for (i in 1:(dim(sp_data)[2])) {
   temp_sp <- NULL
   for (j in 1:(dim(sp_data_1)[1])) {
