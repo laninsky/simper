@@ -67,4 +67,24 @@ rm(gp_names)
 rm(gp_col)
 rm(group_name)
 
+sp_output_within1 <- as.matrix(read.table("sp_output_within1",stringsAsFactors=FALSE))
+temp1 <- rep("within",(dim(sp_output_within1)[1]))
+sp_output_within1 <- cbind(temp1,sp_output_within1)
+
+sp_output_within1 <- rbind(sp_output_within1,sp_output_within2)
+rm(sp_output_within2)
+
+sp_output_between <- as.matrix(read.table("sp_output_between",stringsAsFactors=FALSE))
+temp1 <- rep("between",(dim(sp_output_between)[1]))
+sp_output_between <- cbind(temp1,sp_output_between)
+
+sp_output_within1 <- rbind(sp_output_within1,sp_output_between)
+rm(sp_output_between)
+
+sp_output_within1
+
+
+
+
+
 
