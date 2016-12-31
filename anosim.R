@@ -1,8 +1,9 @@
+#Change these to the names of your various files. Data_file and expl_file should be a matrix of species abundances and a dataframe of explanatory variables, respectively. Group name is the column in the expl_file that has the group you want to perform the anosim over. 
 data_file <- "fishies"
 expl_file <- "fishtype"
 group_name <- "Type"
 
-# Simper on data with two groups
+# Anosim on data with two groups
 sp_data <- read.table(data_file,stringsAsFactors=FALSE)
 gp_data <- read.table(expl_file,stringsAsFactors=FALSE)
 
@@ -50,4 +51,20 @@ for (j in 1:(dim(sp_data_2)[1])) {
   temp_sp <- matrix(temp_sp,ncol=1)
   sp_output_within2 <- rbind(sp_output_within2,temp_sp)
  }
-  
+
+temp1 <- rep("within",(dim(sp_output_within2)[1]))
+sp_output_within2 <- cbind(temp1,sp_output_within2)  
+
+rm(sp_data)
+rm(sp_data_1)
+rm(sp_data_2)
+rm(zerorows)
+rm(temp_sp)
+rm(data_file)
+rm(gp_data)
+rm(expl_file)
+rm(gp_names)
+rm(gp_col)
+rm(group_name)
+
+
