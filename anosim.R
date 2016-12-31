@@ -81,7 +81,10 @@ sp_output_between <- cbind(temp1,sp_output_between)
 sp_output_within1 <- rbind(sp_output_within1,sp_output_between)
 rm(sp_output_between)
 
-sp_output_within1 <- sp_output_within1[order(sp_output_within1[,2]),]
+dist_ranks <- rank(sp_output_within1[,2],ties.method="average")
+sp_output_within1 <- cbind(sp_output_within1,dist_ranks)
+write.table(sp_output_within,"ranked_distances",quote=FALSE,col.names=FALSE,row.names=FALSE)
+
 
 
 
