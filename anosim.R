@@ -81,7 +81,7 @@ sp_output_between <- cbind(temp1,sp_output_between)
 sp_output_within1 <- rbind(sp_output_within1,sp_output_between)
 rm(sp_output_between)
 
-sp_output_within1
+sp_output_within1 <- sp_output_within1[order(sp_output_within1[,2]),]
 
 
 
