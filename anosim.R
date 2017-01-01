@@ -94,12 +94,12 @@ dist_ranks <- rank(sp_output_within1[,2],ties.method="average")
 sp_output_within1 <- cbind(sp_output_within1,dist_ranks)
 write.table(sp_output_within1,"ranked_distances",quote=FALSE,col.names=FALSE,row.names=FALSE)
 
-#
-
 no_of_samples <- dim(gp_data)[1]
 M <- ((no_of_samples)*(no_of_samples-1))/2
 
 obs_R <- ((mean(as.numeric(sp_output_within1[(which(sp_output_within1[,1]=="between")),3])))-(mean(as.numeric(sp_output_within1[(which(sp_output_within1[,1]=="within")),3]))))/(M/2)
+
+#
 
 resample_g1 <- sum(sp_output_within1[,1]=="between")
 
