@@ -68,8 +68,6 @@ for (j in 1:(dim(sp_data_2)[1])) {
 temp1 <- rep("within",(dim(sp_output_within2)[1]))
 sp_output_within2 <- cbind(temp1,sp_output_within2)  
 
-#
-
 rm(sp_data)
 rm(sp_data_1)
 rm(sp_data_2)
@@ -95,6 +93,8 @@ rm(sp_output_between)
 dist_ranks <- rank(sp_output_within1[,2],ties.method="average")
 sp_output_within1 <- cbind(sp_output_within1,dist_ranks)
 write.table(sp_output_within1,"ranked_distances",quote=FALSE,col.names=FALSE,row.names=FALSE)
+
+#
 
 no_of_samples <- dim(gp_data)[1]
 M <- ((no_of_samples)*(no_of_samples-1))/2
