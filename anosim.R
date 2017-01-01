@@ -2,6 +2,13 @@
 data_file <- "fishies"
 expl_file <- "fishtype"
 group_name <- "Type"
+permutations <- 9999
+
+data_file <- "fishies"
+expl_file <- "fishtype"
+group_name <- "Type"
+permutations <- 9999
+
 
 # Anosim on data with two groups
 sp_data <- read.table(data_file,stringsAsFactors=FALSE)
@@ -62,8 +69,6 @@ rm(zerorows)
 rm(temp_sp)
 rm(data_file)
 rm(expl_file)
-rm(gp_names)
-rm(gp_col)
 rm(group_name)
 
 sp_output_within1 <- as.matrix(read.table("sp_output_within1",stringsAsFactors=FALSE))
@@ -82,10 +87,25 @@ rm(sp_output_between)
 
 dist_ranks <- rank(sp_output_within1[,2],ties.method="average")
 sp_output_within1 <- cbind(sp_output_within1,dist_ranks)
-write.table(sp_output_within,"ranked_distances",quote=FALSE,col.names=FALSE,row.names=FALSE)
+write.table(sp_output_within1,"ranked_distances",quote=FALSE,col.names=FALSE,row.names=FALSE)
 
+no_of_samples <- dim(gp_data)[1]
+M <- ((no_of_samples)*(no_of_samples-1))/2
 
+obs_R <- ((mean(as.numeric(sp_output_within1[(which(sp_output_within1[,1]=="between")),3])))-(mean(as.numeric(sp_output_within1[(which(sp_output_within1[,1]=="within")),3]))))/(M/2)
 
+resample_g1 <- sum(gp_data[,gp_col]==gp_names[1])
+
+sim_R_matrix <- matrix(NA,ncol=1,nrow=permutations)
+
+for (i in 1:permutations) {
+  coords <- sample((1:(dim(sp_output_within1)[1])),resample_g1,replace=FALSE)
+  sim_R_matrix[i,1] <- ((mean(as.numeric(sp_output_within1[-coords,3])))-(mean(as.numeric(sp_output_within1[coords,3]))))/(M/2)
+  print(paste("done with permutation",i))
+  flush.console()
+}
+
+pvalue <- sum(sim_R_matrix>=obs_R)/permutations
 
 
 
