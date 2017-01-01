@@ -39,8 +39,6 @@ for (j in 1:(dim(sp_data_1)[1])) {
 write.table(sp_output_between,"sp_output_between",quote=FALSE,col.names=FALSE,row.names=FALSE)
 rm(sp_output_between)
 
-#
-
 for (j in 1:((dim(sp_data_1)[1])-1)) {
   if(!(is.null(dim(sp_data_1[-1:-j,])[1]))) {
     temp_sp <- rowSums(abs(sweep(sp_data_1[-1:-j,], 2, sp_data_1[j,], "-")))/(rowSums(sp_data_1[-1:-j,])+sum(sp_data_1[j,]))
@@ -54,6 +52,8 @@ for (j in 1:((dim(sp_data_1)[1])-1)) {
  }
 write.table(sp_output_within1,"sp_output_within1",quote=FALSE,col.names=FALSE,row.names=FALSE)
 rm(sp_output_within1)
+
+#
 
 for (j in 1:(dim(sp_data_2)[1])) {
   if(!(is.null(dim(sp_data_2[-1:-j,])[1]))) {
