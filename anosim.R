@@ -4,12 +4,6 @@ expl_file <- "fishtype"
 group_name <- "Type"
 permutations <- 9999
 
-data_file <- "fishies"
-expl_file <- "fishtype"
-group_name <- "Type"
-permutations <- 9999
-
-
 # Anosim on data with two groups
 sp_data <- read.table(data_file,stringsAsFactors=FALSE,header=TRUE)
 gp_data <- read.table(expl_file,stringsAsFactors=FALSE,header=TRUE)
@@ -45,6 +39,7 @@ for (j in 1:(dim(sp_data_1)[1])) {
 write.table(sp_output_between,"sp_output_between",quote=FALSE,col.names=FALSE,row.names=FALSE)
 rm(sp_output_between)
 
+#
 
 for (j in 1:((dim(sp_data_1)[1])-1)) {
   if(!(is.null(dim(sp_data_1[-1:-j,])[1]))) {
