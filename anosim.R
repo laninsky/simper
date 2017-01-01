@@ -112,6 +112,8 @@ for (i in 1:permutations) {
   flush.console()
 }
 
+#
+
 pvalue <- sum(sim_R_matrix>=obs_R)/permutations
 
 
