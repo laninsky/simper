@@ -65,10 +65,10 @@ for (j in 1:(dim(sp_data_2)[1])) {
     }
  }
 
-#
-
 temp1 <- rep("within",(dim(sp_output_within2)[1]))
 sp_output_within2 <- cbind(temp1,sp_output_within2)  
+
+#
 
 rm(sp_data)
 rm(sp_data_1)
