@@ -18,15 +18,19 @@ dim(rockmatrix) <- c((dim(rocky)[1])-1,maxcolumn)
 # if they are we count them using that count function
 k <- 1
 for (k in 2:maxcolumn) {
-count <- 0
-for (j in 1:maxrows) {
-if(rockmatrix[j,1]==1) {
-if(rockmatrix[j,1]==rockmatrix[j,k]) {
-count <- count + 1 }
-}}
+  count <- 0
+  for (j in 1:maxrows) {
+    if(is.na(rockmatrix[j,1])) {
+      break
+    }
+    if(rockmatrix[j,1]==1) {
+      if(rockmatrix[j,1]==rockmatrix[j,k]) {
+      count <- count + 1 }
+      }
+    }
 # For our results, we spit out our fish of interest, the fishie we are comparing to (k), and how many times they co-occured in total (j)
-rock_results_temp <- cbind(rocky[1,1],rocky[1,k],count)
-rock_results_final <- rbind(rock_results_final,rock_results_temp)
+  rock_results_temp <- cbind(rocky[1,1],rocky[1,k],count)
+  rock_results_final <- rbind(rock_results_final,rock_results_temp)
 }
 
 write.csv(rock_results_final,file="rock_results.final.csv")
