@@ -136,4 +136,4 @@ for (i in 1:permutations) {
 
 pvalue <- sum(sim_R_matrix>=obs_R)/permutations
 
-print(paste("observed R value of",obs_R,"between",paste(gp_names,collapse=" & "),"with",pvalue,"based on",permutations,"permutations"))
+print(paste("observed R value of",obs_R,"between",paste(gp_names,collapse=" & "),"with a p-value of",pvalue,"based on",permutations,"permutations"))
