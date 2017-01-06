@@ -99,23 +99,39 @@ M <- ((no_of_samples)*(no_of_samples-1))/2
 
 obs_R <- ((mean(as.numeric(sp_output_within1[(which(sp_output_within1[,1]=="between")),3])))-(mean(as.numeric(sp_output_within1[(which(sp_output_within1[,1]=="within")),3]))))/(M/2)
 
-#
+sp_1_group <- sum(gp_data[,gp_col]==gp_names[1])
+sp_2_group <- sum(gp_data[,gp_col]==gp_names[2])
 
-resample_g1 <- sum(sp_output_within1[,1]=="between")
+within1_count <- choose(sp_1_group,2)
+within2_count <- choose(sp_2_group,2)
+between_count <- sp_1_group*sp_2_group
+
+within1_ref <- unlist(combn(sp_1_group,2))
+between_ref <- matrix(ncol=2,nrow=between_count)
+between_ref[,1] <- rep(1:sp_1_group, each = (between_count/sp_1_group)) 
+between_ref[,2] <- rep(1:sp_2_group, (between_count/sp_2_group))
+within2_ref <- unlist(combn(sp_2_group,2))
 
 sim_R_matrix <- matrix(NA,ncol=1,nrow=permutations)
 
 for (i in 1:permutations) {
-  coords <- sample((1:(dim(sp_output_within1)[1])),resample_g1,replace=FALSE)
-  sim_R_matrix[i,1] <- ((mean(as.numeric(sp_output_within1[-coords,3])))-(mean(as.numeric(sp_output_within1[coords,3]))))/(M/2)
+  coords <- NULL
+  new_sp_1 <- sample(no_of_samples, sp_1_group, replace=FALSE)
+  sp_1_cat <- new_sp_1[new_sp_1<=sp_1_group]
+  sp_2_cat <- new_sp_1[new_sp_1>sp_1_group]
+  sp_2_cat <- sp_2_cat-sp_1_group
+  if(length(sp_1_cat)>=1) {
+  coords <- which((within1_ref[1,] %in% sp_1_cat)!=(within1_ref[2,] %in% sp_1_cat))#
+    if(length(sp_2_cat)>=1) {
+      coords <- c(coords,(which((between_ref[,1] %in% sp_1_cat)!=(between_ref[,2] %in% sp_2_cat_mod))+within1_count+within2_count))
+    }
+  }
+  if(length(sp_2_cat)>=1) {
+    coords <- c(coords,(which((within2_ref[1,] %in% sp_2_cat)!=(within2_ref[2,] %in% sp_2_cat))+within1_count))
+  }
+  sim_R_matrix[i,1] <- ((mean(as.numeric(sp_output_within1[coords,3])))-(mean(as.numeric(sp_output_within1[-coords,3]))))/(M/2)
   print(paste("done with permutation",i))
   flush.console()
 }
 
-#
-
 pvalue <- sum(sim_R_matrix>=obs_R)/permutations
-
-
-
-
