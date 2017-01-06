@@ -123,7 +123,7 @@ for (i in 1:permutations) {
   if(length(sp_1_cat)>=1) {
   coords <- which((within1_ref[1,] %in% sp_1_cat)!=(within1_ref[2,] %in% sp_1_cat))#
     if(length(sp_2_cat)>=1) {
-      coords <- c(coords,(which((between_ref[,1] %in% sp_1_cat)!=(between_ref[,2] %in% sp_2_cat_mod))+within1_count+within2_count))
+      coords <- c(coords,(which((between_ref[,1] %in% sp_1_cat)!=(between_ref[,2] %in% sp_2_cat))+within1_count+within2_count))
     }
   }
   if(length(sp_2_cat)>=1) {
