@@ -17,7 +17,7 @@ for (i in 1:(dim(sp_data)[1])) {
 
 if (length(zerorows)>0) {
   sp_data <- sp_data[-zerorows,]
-  gp_data <- sp_data[-zerorows,]
+  gp_data <- gp_data[-zerorows,]
 }
 
 sp_output_between <- NULL
